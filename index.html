@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇹🇼 Taiwan Trip – Jun 9–14</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
+  header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 28px 32px; }
+  header h1 { font-size: 26px; font-weight: 700; }
+  header p { font-size: 14px; opacity: 0.75; margin-top: 4px; }
+  .progress-bar { background: rgba(255,255,255,0.15); border-radius: 99px; height: 8px; margin-top: 16px; }
+  .progress-fill { background: #34c759; height: 8px; border-radius: 99px; transition: width 0.3s; }
+  .progress-label { font-size: 13px; opacity: 0.8; margin-top: 6px; }
+
+  .weather { display: flex; gap: 10px; padding: 20px 32px; overflow-x: auto; background: white; border-bottom: 1px solid #e5e5ea; }
+  .day-card { flex: 0 0 auto; text-align: center; background: #f5f5f7; border-radius: 12px; padding: 12px 16px; min-width: 80px; }
+  .day-card .date { font-size: 11px; color: #6e6e73; font-weight: 600; text-transform: uppercase; }
+  .day-card .icon { font-size: 22px; margin: 6px 0; }
+  .day-card .high { font-size: 15px; font-weight: 700; }
+  .day-card .low { font-size: 12px; color: #6e6e73; }
+  .weather-note { padding: 0 32px 16px; background: white; font-size: 13px; color: #ff9500; border-bottom: 1px solid #e5e5ea; }
+  .weather-note span { margin-right: 8px; }
+
+  main { max-width: 700px; margin: 0 auto; padding: 24px 20px; }
+  .section { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .section-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; user-select: none; }
+  .section-header:hover { background: #f9f9f9; }
+  .section-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .section-count { font-size: 12px; color: #6e6e73; background: #f5f5f7; padding: 3px 10px; border-radius: 99px; }
+  .section-chevron { color: #6e6e73; transition: transform 0.2s; font-size: 12px; }
+  .section.collapsed .section-chevron { transform: rotate(-90deg); }
+  .section.collapsed .items { display: none; }
+
+  .items { border-top: 1px solid #f2f2f7; }
+  .item { display: flex; align-items: center; padding: 13px 20px; border-bottom: 1px solid #f2f2f7; gap: 14px; cursor: pointer; transition: background 0.15s; }
+  .item:last-child { border-bottom: none; }
+  .item:hover { background: #f9f9f9; }
+  .item.checked { background: #f9fff9; }
+  .item.checked .item-text { text-decoration: line-through; color: #aeaeb2; }
+  .checkbox { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #d1d1d6; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .item.checked .checkbox { background: #34c759; border-color: #34c759; }
+  .item.checked .checkbox::after { content: '✓'; color: white; font-size: 13px; font-weight: 700; }
+  .item-text { font-size: 15px; flex: 1; }
+  .item-note { font-size: 12px; color: #6e6e73; margin-top: 2px; }
+  .badge { font-size: 11px; background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 99px; font-weight: 600; flex-shrink: 0; }
+  .badge.must { background: #fde8e8; color: #c0392b; }
+
+  .share-btn { display: block; margin: 0 auto 10px; padding: 12px 28px; background: #007aff; border: none; border-radius: 99px; color: white; font-size: 15px; cursor: pointer; font-weight: 600; width: 100%; max-width: 340px; }
+  .share-btn:hover { background: #0066d6; }
+  .reset-btn { display: block; margin: 0 auto 32px; padding: 10px 28px; background: none; border: 1px solid #d1d1d6; border-radius: 99px; color: #6e6e73; font-size: 14px; cursor: pointer; }
+  .reset-btn:hover { background: #f5f5f7; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇹🇼 Taiwan Trip</h1>
+  <p>June 9–14, 2026 · Taipei · United F9CHM5 / F9G3F1</p>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 0 items packed</div>
+</header>
+
+<div class="weather">
+  <div class="day-card"><div class="date">Jun 9</div><div class="icon">🌦</div><div class="high">88°F</div><div class="low">79°F</div></div>
+  <div class="day-card"><div class="date">Jun 10</div><div class="icon">🌦</div><div class="high">86°F</div><div class="low">79°F</div></div>
+  <div class="day-card"><div class="date">Jun 11</div><div class="icon">🌧</div><div class="high">86°F</div><div class="low">79°F</div></div>
+  <div class="day-card"><div class="date">Jun 12</div><div class="icon">🌧</div><div class="high">84°F</div><div class="low">79°F</div></div>
+  <div class="day-card"><div class="date">Jun 13</div><div class="icon">🌦</div><div class="high">86°F</div><div class="low">79°F</div></div>
+  <div class="day-card"><div class="date">Jun 14</div><div class="icon">🌦</div><div class="high">84°F</div><div class="low">79°F</div></div>
+</div>
+<div class="weather-note">
+  <span>☔ Heavy rain likely</span>
+  <span>💧 Very humid</span>
+  <span>🌡 Hot & muggy — pack light breathable fabrics</span>
+</div>
+
+<main>
+
+  <!-- PUMPING -->
+  <div class="section" id="s-pump">
+    <div class="section-header" onclick="toggleSection('s-pump')">
+      <div class="section-title">🍼 Pumping Supplies</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="section-count" id="count-s-pump">0/0</span>
+        <span class="section-chevron">▼</span>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Breast pump</div><div class="item-note">Check voltage compatibility — Taiwan is 110V (same as US ✓)</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump power cord & adapter</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump flanges / shields (x2 sets)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump tubing & valves (extras)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Milk storage bags</div><div class="item-note">Pack enough for 5 days — ~4–6 sessions/day</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump wipes / quick-clean wipes</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Dish soap (travel size)</div><div class="item-note">For washing pump parts in hotel sink</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Bottle brush (travel/foldable)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nursing pads (disposable)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Cooler bag + ice packs</div><div class="item-note">For transporting milk; Hilton said no freezer — confirm storage plan</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Dry ice / gel packs for flight home</div><div class="item-note">TSA allows breast milk with ice; notify airline in advance</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sterilizer bags (microwave steam bags)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nursing cover / poncho</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Lanolin / nipple cream</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Extra zip-lock bags (for pump parts storage)</div></div></div>
+    </div>
+  </div>
+
+  <!-- CLOTHING -->
+  <div class="section" id="s-clothes">
+    <div class="section-header" onclick="toggleSection('s-clothes')">
+      <div class="section-title">👗 Clothing</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="section-count" id="count-s-clothes">0/0</span>
+        <span class="section-chevron">▼</span>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Light breathable tops (5–6)</div><div class="item-note">Linen, moisture-wicking — it'll be very hot & humid</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Lightweight bottoms (3–4)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Comfortable walking shoes</div><div class="item-note">Lots of night market walking — closed toe useful in rain</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sandals</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Underwear (6)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Socks (4 pairs)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Light cardigan / layer for A/C</div><div class="item-note">Taiwanese buildings/restaurants are heavily air-conditioned</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Compact rain jacket or umbrella</div><div class="item-note">Rain expected all 6 days — pack both if possible</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">PJs / sleepwear</div></div></div>
+    </div>
+  </div>
+
+  <!-- TOILETRIES -->
+  <div class="section" id="s-toiletries">
+    <div class="section-header" onclick="toggleSection('s-toiletries')">
+      <div class="section-title">🧴 Toiletries</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="section-count" id="count-s-toiletries">0/0</span>
+        <span class="section-chevron">▼</span>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sunscreen (SPF 50+)</div><div class="item-note">Very UV-intense even on cloudy days</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Shampoo & conditioner (travel)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Body wash</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Deodorant</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Face wash & skincare</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Toothbrush & toothpaste</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Feminine hygiene products</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hair ties / brush</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Makeup (minimal — humidity will be brutal)</div></div></div>
+    </div>
+  </div>
+
+  <!-- HEALTH -->
+  <div class="section" id="s-health">
+    <div class="section-header" onclick="toggleSection('s-health')">
+      <div class="section-title">💊 Health & Meds</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="section-count" id="count-s-health">0/0</span>
+        <span class="section-chevron">▼</span>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Any prescriptions (5-day supply + extra)</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Ibuprofen / Tylenol</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Antidiarrheal / stomach meds</div><div class="item-note">Useful for food-heavy trips</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Allergy medication</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Motion sickness meds</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Band-aids / blister pads</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Insect repellent (DEET or picaridin)</div></div></div>
+    </div>
+  </div>
+
+  <!-- TECH -->
+  <div class="section" id="s-tech">
+    <div class="section-header" onclick="toggleSection('s-tech')">
+      <div class="section-title">📱 Tech & Electronics</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="section-count" id="count-s-tech">0/0</span>
+        <span class="section-chevron">▼</span>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">MobiMatter eSIM activated</div><div class="item-note">Greater China & Taiwan 5GB — activate before departure</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Phone + charger</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Portable charger / power bank</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Laptop / tablet + charger (if needed)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Headphones</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Camera (optional)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Universal power strip / USB hub</div><div class="item-note">Taiwan uses Type A plugs — same as US, no adapter needed</div></div></div>
+    </div>
+  </div>
+
+  <!-- DOCUMENTS -->
+  <div class="section" id="s-docs">
+    <div class="section-header" onclick="toggleSection('s-docs')">
+      <div class="section-title">📄 Documents</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="section-count" id="count-s-docs">0/0</span>
+        <span class="section-chevron">▼</span>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Passport (valid 6+ months past Jun 14)</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Flight confirmations (F9CHM5 + F9G3F1)</div><div class="item-note">Screenshot or print both</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hotel confirmation (Hilton Taipei Sinban)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Travel insurance info</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Credit cards (notify bank of travel)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Cash in TWD or USD to exchange</div><div class="item-note">Taiwan is still largely cash-based for night markets</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">EasyCard (or plan to get one at airport)</div><div class="item-note">For MRT / buses in Taipei</div></div></div>
+    </div>
+  </div>
+
+  <!-- CARRY-ON -->
+  <div class="section" id="s-carryon">
+    <div class="section-header" onclick="toggleSection('s-carryon')">
+      <div class="section-title">👜 Carry-On Checklist</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="section-count" id="count-s-carryon">0/0</span>
+        <span class="section-chevron">▼</span>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Breast pump (TSA: allowed as medical device, no bag limit)</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Milk storage bags (empty, in carry-on)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Snacks for 13hr flight</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Neck pillow & eye mask</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Change of clothes (in case of delays)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Liquids bag (3-1-1 rule)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Valuables & passport</div></div></div>
+    </div>
+  </div>
+
+  <button class="share-btn" onclick="copyLink()">📋 Copy link to sync with phone</button>
+  <button class="reset-btn" onclick="resetAll()">Reset all checkboxes</button>
+</main>
+
+<script>
+  // Encode checked state as a compact binary string in the URL hash
+  // so the same URL opens the same state on any device.
+
+  function getCheckedBits() {
+    const items = document.querySelectorAll('.item');
+    let bits = '';
+    items.forEach(item => bits += item.classList.contains('checked') ? '1' : '0');
+    return bits;
+  }
+
+  function applyBits(bits) {
+    const items = document.querySelectorAll('.item');
+    items.forEach((item, i) => {
+      if (bits[i] === '1') item.classList.add('checked');
+      else item.classList.remove('checked');
+    });
+  }
+
+  function saveState() {
+    const bits = getCheckedBits();
+    // Save to URL hash AND localStorage
+    history.replaceState(null, '', '#' + bits);
+    localStorage.setItem('taiwan-packing-2026', bits);
+  }
+
+  function loadState() {
+    // URL hash takes priority (lets phone open shared state)
+    const hash = location.hash.replace('#', '');
+    if (hash && /^[01]+$/.test(hash)) return hash;
+    return localStorage.getItem('taiwan-packing-2026') || '';
+  }
+
+  function toggle(item) {
+    item.classList.toggle('checked');
+    updateAll();
+    saveState();
+  }
+
+  function toggleSection(id) {
+    document.getElementById(id).classList.toggle('collapsed');
+  }
+
+  function updateAll() {
+    const all = document.querySelectorAll('.item');
+    const checked = document.querySelectorAll('.item.checked');
+    const pct = all.length ? Math.round(checked.length / all.length * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = checked.length + ' of ' + all.length + ' items packed';
+    document.querySelectorAll('.section').forEach(section => {
+      const el = document.getElementById('count-' + section.id);
+      if (el) el.textContent = section.querySelectorAll('.item.checked').length + '/' + section.querySelectorAll('.item').length;
+    });
+  }
+
+  function copyLink() {
+    saveState();
+    navigator.clipboard.writeText(location.href).then(() => {
+      const btn = document.querySelector('.share-btn');
+      btn.textContent = '✅ Link copied! Open on phone';
+      setTimeout(() => btn.textContent = '📋 Copy link to sync with phone', 2500);
+    });
+  }
+
+  function resetAll() {
+    if (!confirm('Reset all checkboxes?')) return;
+    document.querySelectorAll('.item').forEach(i => i.classList.remove('checked'));
+    history.replaceState(null, '', location.pathname);
+    localStorage.removeItem('taiwan-packing-2026');
+    updateAll();
+  }
+
+  applyBits(loadState());
+  updateAll();
+</script>
+</body>
+</html>
