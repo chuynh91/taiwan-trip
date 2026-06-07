@@ -8,6 +8,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
 
+  /* Gate */
   #gate { position: fixed; inset: 0; background: linear-gradient(135deg, #1a1a2e, #16213e); display: flex; align-items: center; justify-content: center; z-index: 9999; }
   #gate.hidden { display: none; }
   .gate-box { background: white; border-radius: 20px; padding: 36px 32px; width: 90%; max-width: 340px; text-align: center; }
@@ -20,6 +21,7 @@
   .gate-error { color: #ff3b30; font-size: 13px; margin-top: 8px; min-height: 18px; }
   @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
 
+  /* Header */
   header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 28px 32px; }
   header h1 { font-size: 26px; font-weight: 700; }
   header p { font-size: 14px; opacity: 0.75; margin-top: 4px; }
@@ -27,6 +29,7 @@
   .progress-fill { background: #34c759; height: 8px; border-radius: 99px; transition: width 0.3s; }
   .progress-label { font-size: 13px; opacity: 0.8; margin-top: 6px; }
 
+  /* Weather */
   .weather { display: flex; gap: 10px; padding: 20px 32px; overflow-x: auto; background: white; border-bottom: 1px solid #e5e5ea; }
   .day-card { flex: 0 0 auto; text-align: center; background: #f5f5f7; border-radius: 12px; padding: 12px 16px; min-width: 80px; }
   .day-card .date { font-size: 11px; color: #6e6e73; font-weight: 600; text-transform: uppercase; }
@@ -36,6 +39,7 @@
   .weather-note { padding: 0 32px 16px; background: white; font-size: 13px; color: #ff9500; border-bottom: 1px solid #e5e5ea; }
   .weather-note span { margin-right: 8px; }
 
+  /* Bag strategy */
   .bag-strategy { background: #1c1c1e; color: white; padding: 16px 20px; margin: 16px 20px; border-radius: 16px; font-size: 13px; }
   .bag-strategy h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
   .bag-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
@@ -46,6 +50,7 @@
   .bag-tag.personal { background: #3d2a0a; color: #ffb74d; }
   .bag-row p { font-size: 12px; color: #aeaeb2; line-height: 1.4; }
 
+  /* Sections */
   main { max-width: 700px; margin: 0 auto; padding: 8px 20px; }
   .section { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
   .section-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; user-select: none; }
@@ -56,23 +61,45 @@
   .section-chevron { color: #6e6e73; transition: transform 0.2s; font-size: 12px; }
   .section.collapsed .section-chevron { transform: rotate(-90deg); }
   .section.collapsed .items { display: none; }
-
   .items { border-top: 1px solid #f2f2f7; }
-  .item { display: flex; align-items: center; padding: 13px 20px; border-bottom: 1px solid #f2f2f7; gap: 14px; cursor: pointer; transition: background 0.15s; }
-  .item:last-child { border-bottom: none; }
+
+  /* Items */
+  .item { display: flex; align-items: center; padding: 13px 16px 13px 20px; border-bottom: 1px solid #f2f2f7; gap: 12px; transition: background 0.15s; }
   .item:hover { background: #f9f9f9; }
   .item.checked { background: #f9fff9; }
   .item.checked .item-text { text-decoration: line-through; color: #aeaeb2; }
   .item.checked .item-note { text-decoration: line-through; color: #c7c7cc; }
+  .item-check-area { display: flex; align-items: center; gap: 12px; flex: 1; cursor: pointer; min-width: 0; }
   .checkbox { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #d1d1d6; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
   .item.checked .checkbox { background: #34c759; border-color: #34c759; }
   .item.checked .checkbox::after { content: '✓'; color: white; font-size: 13px; font-weight: 700; }
-  .item-text { font-size: 15px; flex: 1; }
+  .item-body { flex: 1; min-width: 0; }
+  .item-text { font-size: 15px; }
   .item-note { font-size: 12px; color: #6e6e73; margin-top: 2px; }
   .badge { font-size: 11px; background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 99px; font-weight: 600; flex-shrink: 0; }
   .badge.must { background: #fde8e8; color: #c0392b; }
   .badge.warn { background: #fff3cd; color: #856404; }
 
+  /* Delete button */
+  .delete-btn { background: none; border: none; cursor: pointer; color: #c7c7cc; font-size: 18px; line-height: 1; padding: 4px 6px; border-radius: 6px; flex-shrink: 0; transition: color 0.15s, background 0.15s; }
+  .delete-btn:hover { color: #ff3b30; background: #fff0f0; }
+
+  /* Add item row */
+  .add-item-row { border-top: 1px solid #f2f2f7; }
+  .add-item-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 20px; background: none; border: none; cursor: pointer; color: #007aff; font-size: 14px; font-weight: 500; text-align: left; }
+  .add-item-btn:hover { background: #f0f7ff; }
+  .add-item-form { display: none; padding: 10px 16px 12px; background: #f9f9f9; border-top: 1px solid #f2f2f7; }
+  .add-item-form.visible { display: block; }
+  .add-item-form input { width: 100%; padding: 10px 14px; border: 1.5px solid #d1d1d6; border-radius: 10px; font-size: 15px; outline: none; margin-bottom: 8px; background: white; }
+  .add-item-form input:focus { border-color: #007aff; }
+  .add-item-form input.note-input { font-size: 13px; color: #6e6e73; }
+  .add-form-btns { display: flex; gap: 8px; }
+  .add-form-btns button { flex: 1; padding: 9px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .btn-add-confirm { background: #007aff; color: white; }
+  .btn-add-confirm:hover { background: #0066d6; }
+  .btn-add-cancel { background: #e5e5ea; color: #1d1d1f; }
+
+  /* Bottom buttons */
   .share-btn { display: block; margin: 16px auto 10px; padding: 12px 28px; background: #007aff; border: none; border-radius: 99px; color: white; font-size: 15px; cursor: pointer; font-weight: 600; width: 100%; max-width: 340px; }
   .share-btn:hover { background: #0066d6; }
   .reset-btn { display: block; margin: 0 auto 32px; padding: 10px 28px; background: none; border: 1px solid #d1d1d6; border-radius: 99px; color: #6e6e73; font-size: 14px; cursor: pointer; }
@@ -114,135 +141,138 @@
   <h3>🧳 Bag Strategy</h3>
   <div class="bag-row">
     <span class="bag-tag exempt">🍼 PUMP BAG — EXEMPT</span>
-    <p>Medical device, does not count toward carry-on limits. Bring pump, all parts, bags, supplies.</p>
+    <p>Medical device, does not count toward carry-on limits. Pump, all parts, bags, supplies.</p>
   </div>
   <div class="bag-row">
     <span class="bag-tag personal">👜 PERSONAL ITEM</span>
-    <p>Backpack under seat. Documents, tech, liquids bag, iPad, snacks, contacts, glasses.</p>
+    <p>Backpack under seat. Documents, tech, laptop, liquids bag, snacks, contacts, glasses.</p>
   </div>
   <div class="bag-row">
     <span class="bag-tag carryon">🧳 CARRY-ON</span>
-    <p>Roller bag. All clothing, shoes, toiletries, meds. Wear sneakers on plane — 4 shoe pairs is tight, consider swapping crocs for sandals.</p>
+    <p>Roller bag. Clothing, shoes, toiletries, meds. Wear sneakers on plane — 4 shoe pairs is tight.</p>
   </div>
   <div class="bag-row">
     <span class="bag-tag" style="background:#2d1a4a;color:#ce93d8;">🔄 RETURN</span>
-    <p>Frozen milk goes in pump bag (cooler) + soft duffel if needed. Pack dry ice or gel packs. Breast milk can fly as carry-on or checked — no quantity limit.</p>
+    <p>Pump bag becomes milk cooler. Pack pump in carry-on. Dry ice or gel packs for 13hr flight.</p>
   </div>
 </div>
 
 <main>
 
-  <!-- PUMP BAG -->
   <div class="section" id="s-pump">
     <div class="section-header" onclick="toggleSection('s-pump')">
-      <div><div class="section-title">🍼 Pump Bag <span style="font-size:11px;background:#0a3d0a;color:#34c759;padding:2px 8px;border-radius:99px;font-weight:600;margin-left:6px;">EXEMPT</span></div>
-      <div class="section-subtitle">Medical device bag — doesn't count toward carry-on limits</div></div>
+      <div>
+        <div class="section-title">🍼 Pump Bag <span style="font-size:11px;background:#0a3d0a;color:#34c759;padding:2px 8px;border-radius:99px;font-weight:600;margin-left:6px;">EXEMPT</span></div>
+        <div class="section-subtitle">Medical device bag — doesn't count toward carry-on limits</div>
+      </div>
       <div style="display:flex;align-items:center;gap:8px"><span class="section-count" id="count-s-pump">0/0</span><span class="section-chevron">▼</span></div>
     </div>
-    <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Breast pump + power cord</div><div class="item-note">Taiwan is 110V — same as US, no adapter needed</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Flanges / shields (2 sets)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Tubing & valves (+ spares)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump wipes / quick-clean wipes</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Dish soap — Dr. Bronner's in spray bottle</div><div class="item-note">Great for washing parts in hotel sink + can handwash clothes</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Foldable bottle brush</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Milk storage bags — bring 25</div><div class="item-note">4–5 sessions/day at 2–4 oz = ~12–16 oz/day. Strategy: pump into bottles → refrigerate → consolidate → fill bags to ~5–6 oz before freezing. ~3 bags/day frozen + 1 on-the-go buffer = 25 bags for 6 days. Don't bag every session.</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hakaa (manual pump)</div><div class="item-note">Great backup for on-the-go, catch letdown, no power needed</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Soft-sided cooler bag + ice packs</div><div class="item-note">⚠️ Hilton eco-fridge does NOT freeze — call to confirm kitchen/front desk freezer access. Cooler also doubles as milk transport bag on return flight.</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Microwave sterilizer bags</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nursing pads (disposable)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nipple cream / lanolin</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nursing cover / poncho</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Extra zip-lock bags (leak protection + parts storage)</div></div></div>
+    <div class="items" id="items-s-pump">
+      <div class="item" data-id="pump-0"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Breast pump + power cord</div><div class="item-note">Taiwan is 110V — same as US, no adapter needed</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-1"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Flanges / shields (2 sets)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-2"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Tubing & valves (+ spares)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-3"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Pump wipes / quick-clean wipes</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-4"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Dapple baby dish soap</div><div class="item-note">For washing pump parts in hotel sink</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-5"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Foldable bottle brush</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-6"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Milk storage bags — bring 25</div><div class="item-note">4–5 sessions/day at 2–4 oz = ~12–16 oz/day. Strategy: pump into bottles → refrigerate → consolidate → fill bags to ~5–6 oz before freezing. ~3 bags/day frozen + 1 on-the-go buffer = 25 bags for 6 days.</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-7"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Hakaa (manual pump)</div><div class="item-note">Great for on-the-go, catch letdown, no power needed</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-8"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Soft-sided cooler bag + ice packs</div><div class="item-note">⚠️ Hilton eco-fridge does NOT freeze — call ahead to confirm kitchen/front desk freezer access. Doubles as milk transport on return flight.</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-9"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Microwave sterilizer bags</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-10"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Nursing pads (disposable)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-11"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Nipple cream / lanolin</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-12"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Nursing cover / poncho</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="pump-13"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Extra zip-lock bags (leak protection + parts storage)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
     </div>
+    <div class="add-item-row"><button class="add-item-btn" onclick="showAddForm('s-pump')">+ Add item</button><div class="add-item-form" id="add-form-s-pump"><input type="text" placeholder="Item name" id="add-text-s-pump" onkeydown="if(event.key==='Enter')confirmAdd('s-pump')"><input type="text" placeholder="Note (optional)" id="add-note-s-pump" class="note-input" onkeydown="if(event.key==='Enter')confirmAdd('s-pump')"><div class="add-form-btns"><button class="btn-add-cancel" onclick="hideAddForm('s-pump')">Cancel</button><button class="btn-add-confirm" onclick="confirmAdd('s-pump')">Add</button></div></div></div>
   </div>
 
-  <!-- PERSONAL ITEM -->
   <div class="section" id="s-personal">
     <div class="section-header" onclick="toggleSection('s-personal')">
-      <div><div class="section-title">👜 Personal Item (Backpack)</div>
-      <div class="section-subtitle">Under-seat bag — documents, tech, liquids, snacks</div></div>
+      <div>
+        <div class="section-title">👜 Personal Item (Backpack)</div>
+        <div class="section-subtitle">Under-seat bag — documents, tech, liquids, snacks</div>
+      </div>
       <div style="display:flex;align-items:center;gap:8px"><span class="section-count" id="count-s-personal">0/0</span><span class="section-chevron">▼</span></div>
     </div>
-    <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Passport</div><div class="item-note">Must be valid 6+ months past Jun 14</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Flight confirmations (screenshot both F9CHM5 + F9G3F1)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hotel confirmation — Hilton Taipei Sinban</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Travel insurance info (Cigna 02335E, ISOS 11BCPA000257, Chubb BTA5002)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Credit cards + cash (TWD or USD to exchange)</div><div class="item-note">Taiwan is cash-heavy for night markets. Notify bank of travel.</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">EasyCard (or grab one at TPE airport)</div><div class="item-note">For MRT + buses in Taipei</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Phone + charger</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">iPad + charger</div><div class="item-note">Can use for white noise, entertainment on 13hr flight</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">USB-A charger for plane + watch charger</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Portable power bank</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Earbuds / headphones</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">MobiMatter eSIM — activate before departure</div><div class="item-note">Greater China & Taiwan 5GB — activate in app settings</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Contacts + contact solution</div><div class="item-note">Bring enough for 6 days + extras</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Glasses</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">3-1-1 liquids bag</div><div class="item-note">Face wash, moisturizer, SPF, toothpaste — travel sizes</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Face masks (for flight)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Snacks for 13hr flight</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Neck pillow + eye mask</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">1 change of clothes (in case of delays)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Reusable water bottle (empty through security)</div></div></div>
+    <div class="items" id="items-s-personal">
+      <div class="item" data-id="personal-0"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Passport</div><div class="item-note">Must be valid 6+ months past Jun 14</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-1"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Flight confirmations (screenshot F9CHM5 + F9G3F1)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-2"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Hotel confirmation — Hilton Taipei Sinban</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-3"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Travel insurance info</div><div class="item-note">Cigna 02335E · ISOS 11BCPA000257 · Chubb BTA5002</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-4"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Credit cards + cash</div><div class="item-note">Taiwan is cash-heavy for night markets. Notify bank of travel.</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-5"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">EasyCard (or grab one at TPE airport)</div><div class="item-note">For MRT + buses in Taipei</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-6"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Phone + charger</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-7"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Work laptop + charger</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-8"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">USB-A charger for plane + watch charger</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-9"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Portable power bank</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-10"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Earbuds / headphones</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-11"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">MobiMatter eSIM — activate before departure</div><div class="item-note">Greater China & Taiwan 5GB</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-12"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Contacts</div><div class="item-note">Enough for 6 days + extras</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-13"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Glasses</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-14"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">3-1-1 liquids bag</div><div class="item-note">Face wash, moisturizer, SPF, toothpaste — travel sizes</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-15"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Face masks (for flight)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-16"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Snacks for 13hr flight</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-17"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Neck pillow + eye mask</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-18"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Change of clothes (in case of delays)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="personal-19"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Reusable water bottle (empty through security)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
     </div>
+    <div class="add-item-row"><button class="add-item-btn" onclick="showAddForm('s-personal')">+ Add item</button><div class="add-item-form" id="add-form-s-personal"><input type="text" placeholder="Item name" id="add-text-s-personal" onkeydown="if(event.key==='Enter')confirmAdd('s-personal')"><input type="text" placeholder="Note (optional)" id="add-note-s-personal" class="note-input" onkeydown="if(event.key==='Enter')confirmAdd('s-personal')"><div class="add-form-btns"><button class="btn-add-cancel" onclick="hideAddForm('s-personal')">Cancel</button><button class="btn-add-confirm" onclick="confirmAdd('s-personal')">Add</button></div></div></div>
   </div>
 
-  <!-- CARRY-ON -->
   <div class="section" id="s-carryon">
     <div class="section-header" onclick="toggleSection('s-carryon')">
-      <div><div class="section-title">🧳 Carry-On (Roller Bag)</div>
-      <div class="section-subtitle">Clothing, shoes, full toiletries, meds</div></div>
+      <div>
+        <div class="section-title">🧳 Carry-On (Roller Bag)</div>
+        <div class="section-subtitle">Clothing, shoes, toiletries, meds</div>
+      </div>
       <div style="display:flex;align-items:center;gap:8px"><span class="section-count" id="count-s-carryon">0/0</span><span class="section-chevron">▼</span></div>
     </div>
-    <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Light breathable tops (5–6)</div><div class="item-note">Nursing shirts work great — linen or moisture-wicking for humidity</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Lightweight bottoms (3–4)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">One black or plain outfit</div><div class="item-note">For nicer dinners or going out</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Workout outfit + sports bra</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nursing bras (2–3)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Underwear (6)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Socks (4 pairs)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Light cardigan / layer</div><div class="item-note">Buildings & restaurants in Taiwan are heavily air-conditioned</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Rain jacket</div><div class="item-note">Rain all 6 days — compact packable preferred</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">PJs / sleepwear</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hat</div><div class="item-note">UV protection even on cloudy days</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sunglasses</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">👟 Sneakers — wear on plane</div><div class="item-note">Heaviest shoe, wear to save bag space</div></div><span class="badge warn">WEAR</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">👠 Black shoes</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">🪖 Crocs — pack flat</div><div class="item-note">⚠️ 4 pairs of shoes is tight in a carry-on — consider if you need all 4 or can swap walking shoes for Crocs doubling up</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">👟 Walking shoes</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sunscreen SPF 50+</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Full-size toiletries</div><div class="item-note">Shampoo, conditioner, body wash, deodorant, face wash, moisturizer</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Toothbrush + toothpaste</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hair ties + brush</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Makeup (keep minimal — humidity)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Feminine hygiene products</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Supplements</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Prescriptions (6-day supply + extra)</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Ibuprofen / Tylenol</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Stomach meds / antidiarrheal</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Allergy meds</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Insect repellent (DEET or picaridin)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Band-aids / blister pads</div></div></div>
+    <div class="items" id="items-s-carryon">
+      <div class="item" data-id="carry-0"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Light breathable tops (5–6)</div><div class="item-note">Nursing shirts preferred — linen or moisture-wicking</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-1"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Lightweight bottoms (3–4)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-2"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">One black or plain outfit</div><div class="item-note">For nicer dinners or going out</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-3"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Workout outfit + sports bra</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-4"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Nursing bras (2–3)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-5"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Underwear (6)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-6"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Socks (4 pairs)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-7"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Retainers</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-8"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Light cardigan / layer</div><div class="item-note">Buildings & restaurants are heavily air-conditioned</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-9"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Rain jacket (compact packable)</div><div class="item-note">Rain expected all 6 days</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-10"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">PJs / sleepwear</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-11"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Hat</div><div class="item-note">UV protection even on cloudy days</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-12"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Sunglasses</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-13"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">👟 Sneakers — wear on plane</div><div class="item-note">Heaviest shoes — wear to save bag space</div></div></div><span class="badge warn">WEAR</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-14"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">👠 Black shoes</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-15"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">🪖 Crocs — pack flat</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-16"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">👟 Walking shoes</div><div class="item-note">⚠️ 4 pairs of shoes is tight — consider wearing walking shoes on plane instead and leaving black shoes at home</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-17"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Sunscreen SPF 50+</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-18"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Full-size toiletries</div><div class="item-note">Shampoo, conditioner, body wash, deodorant, face cream</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-19"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Toothbrush + toothpaste</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-20"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Hair ties + brush</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-21"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Makeup (minimal — humidity)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-22"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Supplements</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="carry-23"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Insect repellent (DEET or picaridin)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
     </div>
+    <div class="add-item-row"><button class="add-item-btn" onclick="showAddForm('s-carryon')">+ Add item</button><div class="add-item-form" id="add-form-s-carryon"><input type="text" placeholder="Item name" id="add-text-s-carryon" onkeydown="if(event.key==='Enter')confirmAdd('s-carryon')"><input type="text" placeholder="Note (optional)" id="add-note-s-carryon" class="note-input" onkeydown="if(event.key==='Enter')confirmAdd('s-carryon')"><div class="add-form-btns"><button class="btn-add-cancel" onclick="hideAddForm('s-carryon')">Cancel</button><button class="btn-add-confirm" onclick="confirmAdd('s-carryon')">Add</button></div></div></div>
   </div>
 
-  <!-- RETURN TRIP -->
   <div class="section" id="s-return">
     <div class="section-header" onclick="toggleSection('s-return')">
-      <div><div class="section-title">🔄 Return Trip — Milk Transport</div>
-      <div class="section-subtitle">Flying frozen milk home on Jun 14</div></div>
+      <div>
+        <div class="section-title">🔄 Return Trip — Milk Transport</div>
+        <div class="section-subtitle">Flying frozen milk home on Jun 14</div>
+      </div>
       <div style="display:flex;align-items:center;gap:8px"><span class="section-count" id="count-s-return">0/0</span><span class="section-chevron">▼</span></div>
     </div>
-    <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Confirm hotel freezer storage before arrival</div><div class="item-note">Hilton eco-fridge doesn't freeze — call ahead to arrange kitchen/front desk freezer access</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Frozen gel packs (bring flat, freeze at hotel)</div><div class="item-note">TSA allows frozen gel packs with breast milk</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Dry ice option (buy in Taipei if needed)</div><div class="item-note">Keeps milk frozen for 13hr flight — max 5.5 lbs allowed in checked, any amount carry-on; declare at security</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Extra zip-lock bags around each milk bag (leak protection)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Label milk bags with date + volume before freezing</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pack pump in carry-on on return (pump bag → milk cooler)</div></div></div>
+    <div class="items" id="items-s-return">
+      <div class="item" data-id="return-0"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Call hotel before arrival to confirm freezer access</div><div class="item-note">Hilton eco-fridge does NOT freeze — arrange kitchen/front desk freezer</div></div></div><span class="badge must">MUST</span><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="return-1"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Frozen gel packs (bring flat, freeze at hotel)</div><div class="item-note">TSA allows frozen gel packs with breast milk</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="return-2"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Dry ice option (buy in Taipei if needed)</div><div class="item-note">Keeps milk frozen for 13hr flight — max 5.5 lbs checked, any amount carry-on; declare at security</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="return-3"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Extra zip-lock bags around each milk bag (leak protection)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="return-4"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Label milk bags with date + volume before freezing</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
+      <div class="item" data-id="return-5"><div class="item-check-area" onclick="toggleItem(this.closest('.item'))"><div class="checkbox"></div><div class="item-body"><div class="item-text">Pack pump in carry-on on return (pump bag → milk cooler)</div></div></div><button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button></div>
     </div>
+    <div class="add-item-row"><button class="add-item-btn" onclick="showAddForm('s-return')">+ Add item</button><div class="add-item-form" id="add-form-s-return"><input type="text" placeholder="Item name" id="add-text-s-return" onkeydown="if(event.key==='Enter')confirmAdd('s-return')"><input type="text" placeholder="Note (optional)" id="add-note-s-return" class="note-input" onkeydown="if(event.key==='Enter')confirmAdd('s-return')"><div class="add-form-btns"><button class="btn-add-cancel" onclick="hideAddForm('s-return')">Cancel</button><button class="btn-add-confirm" onclick="confirmAdd('s-return')">Add</button></div></div></div>
   </div>
 
   <button class="share-btn" onclick="copyLink()">📋 Copy link to sync with phone</button>
@@ -252,51 +282,118 @@
 <script>
   const PW = 'huynh';
   const AUTH_KEY = 'taiwan-auth';
+  const CHECKED_KEY = 'taiwan-checked';
+  const DELETED_KEY = 'taiwan-deleted';
+  const CUSTOM_KEY = 'taiwan-custom';
 
+  // --- Auth ---
   function checkPw() {
     const input = document.getElementById('pwInput');
-    const error = document.getElementById('pwError');
     if (input.value === PW) {
       localStorage.setItem(AUTH_KEY, '1');
       document.getElementById('gate').classList.add('hidden');
     } else {
       input.classList.add('error');
-      error.textContent = 'Incorrect password — try again';
+      document.getElementById('pwError').textContent = 'Incorrect password — try again';
       input.value = '';
       setTimeout(() => input.classList.remove('error'), 400);
     }
   }
   if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('gate').classList.add('hidden');
 
-  function getCheckedBits() {
-    let bits = '';
-    document.querySelectorAll('.item').forEach(item => bits += item.classList.contains('checked') ? '1' : '0');
-    return bits;
-  }
-  function applyBits(bits) {
-    document.querySelectorAll('.item').forEach((item, i) => {
-      if (bits[i] === '1') item.classList.add('checked');
-      else item.classList.remove('checked');
-    });
-  }
-  function saveState() {
-    const bits = getCheckedBits();
-    history.replaceState(null, '', '#' + bits);
-    localStorage.setItem('taiwan-packing-2026', bits);
-  }
-  function loadState() {
-    const hash = location.hash.replace('#', '');
-    if (hash && /^[01]+$/.test(hash)) return hash;
-    return localStorage.getItem('taiwan-packing-2026') || '';
-  }
-  function toggle(item) {
+  // --- State helpers ---
+  function getChecked() { try { return JSON.parse(localStorage.getItem(CHECKED_KEY)) || {}; } catch { return {}; } }
+  function getDeleted() { try { return JSON.parse(localStorage.getItem(DELETED_KEY)) || []; } catch { return []; } }
+  function getCustom() { try { return JSON.parse(localStorage.getItem(CUSTOM_KEY)) || {}; } catch { return {}; } }
+
+  function saveChecked(obj) { localStorage.setItem(CHECKED_KEY, JSON.stringify(obj)); }
+  function saveDeleted(arr) { localStorage.setItem(DELETED_KEY, JSON.stringify(arr)); }
+  function saveCustom(obj) { localStorage.setItem(CUSTOM_KEY, JSON.stringify(obj)); }
+
+  // --- Toggle item ---
+  function toggleItem(item) {
     item.classList.toggle('checked');
+    const checked = getChecked();
+    checked[item.dataset.id] = item.classList.contains('checked');
+    saveChecked(checked);
     updateAll();
-    saveState();
   }
+
+  // --- Delete item ---
+  function deleteItem(btn) {
+    const item = btn.closest('.item');
+    const id = item.dataset.id;
+    const deleted = getDeleted();
+    if (!deleted.includes(id)) deleted.push(id);
+    saveDeleted(deleted);
+    // Also remove from checked
+    const checked = getChecked();
+    delete checked[id];
+    saveChecked(checked);
+    item.remove();
+    updateAll();
+  }
+
+  // --- Add item form ---
+  function showAddForm(sectionId) {
+    document.getElementById('add-form-' + sectionId).classList.add('visible');
+    document.getElementById('add-text-' + sectionId).focus();
+  }
+  function hideAddForm(sectionId) {
+    const form = document.getElementById('add-form-' + sectionId);
+    form.classList.remove('visible');
+    document.getElementById('add-text-' + sectionId).value = '';
+    document.getElementById('add-note-' + sectionId).value = '';
+  }
+  function confirmAdd(sectionId) {
+    const textEl = document.getElementById('add-text-' + sectionId);
+    const noteEl = document.getElementById('add-note-' + sectionId);
+    const text = textEl.value.trim();
+    if (!text) { textEl.focus(); return; }
+    const note = noteEl.value.trim();
+    const id = 'custom-' + sectionId + '-' + Date.now();
+    // Save to custom storage
+    const custom = getCustom();
+    if (!custom[sectionId]) custom[sectionId] = [];
+    custom[sectionId].push({ id, text, note });
+    saveCustom(custom);
+    // Render it
+    renderCustomItem(sectionId, { id, text, note });
+    hideAddForm(sectionId);
+    updateAll();
+  }
+
+  function renderCustomItem(sectionId, { id, text, note }) {
+    const container = document.getElementById('items-' + sectionId);
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.dataset.id = id;
+    item.innerHTML = `
+      <div class="item-check-area" onclick="toggleItem(this.closest('.item'))">
+        <div class="checkbox"></div>
+        <div class="item-body">
+          <div class="item-text">${escHtml(text)}</div>
+          ${note ? `<div class="item-note">${escHtml(note)}</div>` : ''}
+        </div>
+      </div>
+      <button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button>
+    `;
+    // Apply checked state if saved
+    const checked = getChecked();
+    if (checked[id]) item.classList.add('checked');
+    container.appendChild(item);
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // --- Section collapse ---
   function toggleSection(id) {
     document.getElementById(id).classList.toggle('collapsed');
   }
+
+  // --- Progress ---
   function updateAll() {
     const all = document.querySelectorAll('.item');
     const checked = document.querySelectorAll('.item.checked');
@@ -308,24 +405,83 @@
       if (el) el.textContent = section.querySelectorAll('.item.checked').length + '/' + section.querySelectorAll('.item').length;
     });
   }
+
+  // --- Share link ---
   function copyLink() {
-    saveState();
-    navigator.clipboard.writeText(location.href).then(() => {
+    // Encode checked IDs in URL hash
+    const checked = getChecked();
+    const ids = Object.entries(checked).filter(([,v])=>v).map(([k])=>k).join(',');
+    const url = location.origin + location.pathname + (ids ? '#' + btoa(ids) : '');
+    navigator.clipboard.writeText(url).then(() => {
       const btn = document.querySelector('.share-btn');
       btn.textContent = '✅ Link copied! Open on phone';
       setTimeout(() => btn.textContent = '📋 Copy link to sync with phone', 2500);
     });
   }
+
+  // --- Reset ---
   function resetAll() {
-    if (!confirm('Reset all checkboxes?')) return;
+    if (!confirm('Reset all checkboxes? Custom items and deletions will be kept.')) return;
     document.querySelectorAll('.item').forEach(i => i.classList.remove('checked'));
-    history.replaceState(null, '', location.pathname);
-    localStorage.removeItem('taiwan-packing-2026');
+    saveChecked({});
     updateAll();
   }
 
-  applyBits(loadState());
-  updateAll();
+  // --- Init: apply saved state ---
+  function init() {
+    const checked = getChecked();
+    const deleted = getDeleted();
+    const custom = getCustom();
+
+    // Hide deleted built-in items
+    deleted.forEach(id => {
+      const el = document.querySelector(`[data-id="${id}"]`);
+      if (el) el.remove();
+    });
+
+    // Apply checked state to built-in items
+    Object.entries(checked).forEach(([id, isChecked]) => {
+      if (isChecked) {
+        const el = document.querySelector(`[data-id="${id}"]`);
+        if (el) el.classList.add('checked');
+      }
+    });
+
+    // Render custom items
+    Object.entries(custom).forEach(([sectionId, items]) => {
+      items.forEach(item => {
+        // Only render if not deleted
+        if (!deleted.includes(item.id)) {
+          renderCustomItem(sectionId, item);
+          if (checked[item.id]) {
+            const el = document.querySelector(`[data-id="${item.id}"]`);
+            if (el) el.classList.add('checked');
+          }
+        }
+      });
+    });
+
+    // Apply URL hash checked state (overrides localStorage for cross-device sync)
+    const hash = location.hash.replace('#', '');
+    if (hash) {
+      try {
+        const ids = atob(hash).split(',').filter(Boolean);
+        const newChecked = getChecked();
+        // First uncheck all
+        document.querySelectorAll('.item.checked').forEach(i => i.classList.remove('checked'));
+        // Then check the ones from hash
+        ids.forEach(id => {
+          const el = document.querySelector(`[data-id="${id}"]`);
+          if (el) { el.classList.add('checked'); newChecked[id] = true; }
+        });
+        saveChecked(newChecked);
+      } catch(e) {}
+    }
+
+    updateAll();
+  }
+
+  init();
 </script>
 </body>
 </html>
