@@ -6,6 +6,7 @@
 <title>🇹🇼 Taiwan Trip – Jun 9–14</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
 
   #gate { position: fixed; inset: 0; background: linear-gradient(135deg, #1a1a2e, #16213e); display: flex; align-items: center; justify-content: center; z-index: 9999; }
   #gate.hidden { display: none; }
@@ -16,10 +17,9 @@
   .gate-box input:focus { border-color: #007aff; }
   .gate-box input.error { border-color: #ff3b30; animation: shake 0.3s; }
   .gate-btn { width: 100%; padding: 14px; background: #007aff; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
-  .gate-btn:hover { background: #0066d6; }
   .gate-error { color: #ff3b30; font-size: 13px; margin-top: 8px; min-height: 18px; }
   @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
+
   header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 28px 32px; }
   header h1 { font-size: 26px; font-weight: 700; }
   header p { font-size: 14px; opacity: 0.75; margin-top: 4px; }
@@ -36,11 +36,22 @@
   .weather-note { padding: 0 32px 16px; background: white; font-size: 13px; color: #ff9500; border-bottom: 1px solid #e5e5ea; }
   .weather-note span { margin-right: 8px; }
 
-  main { max-width: 700px; margin: 0 auto; padding: 24px 20px; }
+  .bag-strategy { background: #1c1c1e; color: white; padding: 16px 20px; margin: 16px 20px; border-radius: 16px; font-size: 13px; }
+  .bag-strategy h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+  .bag-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+  .bag-row:last-child { margin-bottom: 0; }
+  .bag-tag { background: #2c2c2e; border-radius: 8px; padding: 4px 10px; font-size: 12px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+  .bag-tag.exempt { background: #0a3d0a; color: #34c759; }
+  .bag-tag.carryon { background: #0a2a4a; color: #64b5f6; }
+  .bag-tag.personal { background: #3d2a0a; color: #ffb74d; }
+  .bag-row p { font-size: 12px; color: #aeaeb2; line-height: 1.4; }
+
+  main { max-width: 700px; margin: 0 auto; padding: 8px 20px; }
   .section { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
   .section-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; user-select: none; }
   .section-header:hover { background: #f9f9f9; }
   .section-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .section-subtitle { font-size: 12px; color: #6e6e73; font-weight: 400; margin-top: 2px; }
   .section-count { font-size: 12px; color: #6e6e73; background: #f5f5f7; padding: 3px 10px; border-radius: 99px; }
   .section-chevron { color: #6e6e73; transition: transform 0.2s; font-size: 12px; }
   .section.collapsed .section-chevron { transform: rotate(-90deg); }
@@ -52,6 +63,7 @@
   .item:hover { background: #f9f9f9; }
   .item.checked { background: #f9fff9; }
   .item.checked .item-text { text-decoration: line-through; color: #aeaeb2; }
+  .item.checked .item-note { text-decoration: line-through; color: #c7c7cc; }
   .checkbox { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #d1d1d6; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
   .item.checked .checkbox { background: #34c759; border-color: #34c759; }
   .item.checked .checkbox::after { content: '✓'; color: white; font-size: 13px; font-weight: 700; }
@@ -59,8 +71,9 @@
   .item-note { font-size: 12px; color: #6e6e73; margin-top: 2px; }
   .badge { font-size: 11px; background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 99px; font-weight: 600; flex-shrink: 0; }
   .badge.must { background: #fde8e8; color: #c0392b; }
+  .badge.warn { background: #fff3cd; color: #856404; }
 
-  .share-btn { display: block; margin: 0 auto 10px; padding: 12px 28px; background: #007aff; border: none; border-radius: 99px; color: white; font-size: 15px; cursor: pointer; font-weight: 600; width: 100%; max-width: 340px; }
+  .share-btn { display: block; margin: 16px auto 10px; padding: 12px 28px; background: #007aff; border: none; border-radius: 99px; color: white; font-size: 15px; cursor: pointer; font-weight: 600; width: 100%; max-width: 340px; }
   .share-btn:hover { background: #0066d6; }
   .reset-btn { display: block; margin: 0 auto 32px; padding: 10px 28px; background: none; border: 1px solid #d1d1d6; border-radius: 99px; color: #6e6e73; font-size: 14px; cursor: pointer; }
   .reset-btn:hover { background: #f5f5f7; }
@@ -94,167 +107,141 @@
   <div class="day-card"><div class="date">Jun 14</div><div class="icon">🌦</div><div class="high">84°F</div><div class="low">79°F</div></div>
 </div>
 <div class="weather-note">
-  <span>☔ Heavy rain likely</span>
-  <span>💧 Very humid</span>
-  <span>🌡 Hot & muggy — pack light breathable fabrics</span>
+  <span>☔ Rain all 6 days</span><span>💧 Very humid</span><span>🌡 Hot & muggy — pack light breathable fabrics</span>
+</div>
+
+<div class="bag-strategy">
+  <h3>🧳 Bag Strategy</h3>
+  <div class="bag-row">
+    <span class="bag-tag exempt">🍼 PUMP BAG — EXEMPT</span>
+    <p>Medical device, does not count toward carry-on limits. Bring pump, all parts, bags, supplies.</p>
+  </div>
+  <div class="bag-row">
+    <span class="bag-tag personal">👜 PERSONAL ITEM</span>
+    <p>Backpack under seat. Documents, tech, liquids bag, iPad, snacks, contacts, glasses.</p>
+  </div>
+  <div class="bag-row">
+    <span class="bag-tag carryon">🧳 CARRY-ON</span>
+    <p>Roller bag. All clothing, shoes, toiletries, meds. Wear sneakers on plane — 4 shoe pairs is tight, consider swapping crocs for sandals.</p>
+  </div>
+  <div class="bag-row">
+    <span class="bag-tag" style="background:#2d1a4a;color:#ce93d8;">🔄 RETURN</span>
+    <p>Frozen milk goes in pump bag (cooler) + soft duffel if needed. Pack dry ice or gel packs. Breast milk can fly as carry-on or checked — no quantity limit.</p>
+  </div>
 </div>
 
 <main>
 
-  <!-- PUMPING -->
+  <!-- PUMP BAG -->
   <div class="section" id="s-pump">
     <div class="section-header" onclick="toggleSection('s-pump')">
-      <div class="section-title">🍼 Pumping Supplies</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="section-count" id="count-s-pump">0/0</span>
-        <span class="section-chevron">▼</span>
-      </div>
+      <div><div class="section-title">🍼 Pump Bag <span style="font-size:11px;background:#0a3d0a;color:#34c759;padding:2px 8px;border-radius:99px;font-weight:600;margin-left:6px;">EXEMPT</span></div>
+      <div class="section-subtitle">Medical device bag — doesn't count toward carry-on limits</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-count" id="count-s-pump">0/0</span><span class="section-chevron">▼</span></div>
     </div>
     <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Breast pump</div><div class="item-note">Check voltage compatibility — Taiwan is 110V (same as US ✓)</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump power cord & adapter</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump flanges / shields (x2 sets)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump tubing & valves (extras)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Milk storage bags — bring 25</div><div class="item-note">4–5 sessions/day at 2–4 oz = ~12–16 oz/day. Pump into bottles, refrigerate, consolidate → fill bags to 5–6 oz before freezing. ~3 bags/day frozen + 1 on-the-go = 25 total covers 6 days with buffer. Don't bag every session.</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Breast pump + power cord</div><div class="item-note">Taiwan is 110V — same as US, no adapter needed</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Flanges / shields (2 sets)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Tubing & valves (+ spares)</div></div></div>
       <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pump wipes / quick-clean wipes</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Dish soap (travel size)</div><div class="item-note">For washing pump parts in hotel sink</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Bottle brush (travel/foldable)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Dish soap — Dr. Bronner's in spray bottle</div><div class="item-note">Great for washing parts in hotel sink + can handwash clothes</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Foldable bottle brush</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Milk storage bags — bring 25</div><div class="item-note">4–5 sessions/day at 2–4 oz = ~12–16 oz/day. Strategy: pump into bottles → refrigerate → consolidate → fill bags to ~5–6 oz before freezing. ~3 bags/day frozen + 1 on-the-go buffer = 25 bags for 6 days. Don't bag every session.</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hakaa (manual pump)</div><div class="item-note">Great backup for on-the-go, catch letdown, no power needed</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Soft-sided cooler bag + ice packs</div><div class="item-note">⚠️ Hilton eco-fridge does NOT freeze — call to confirm kitchen/front desk freezer access. Cooler also doubles as milk transport bag on return flight.</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Microwave sterilizer bags</div></div></div>
       <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nursing pads (disposable)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Cooler bag + ice packs</div><div class="item-note">For on-the-go transport. ⚠️ Hilton Sinban eco-fridge does NOT freeze — call ahead to confirm kitchen/front desk freezer access for storing milk bags</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Dry ice / gel packs for flight home</div><div class="item-note">TSA allows breast milk with ice; notify airline in advance</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sterilizer bags (microwave steam bags)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nipple cream / lanolin</div></div></div>
       <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nursing cover / poncho</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Lanolin / nipple cream</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Extra zip-lock bags (for pump parts storage)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Extra zip-lock bags (leak protection + parts storage)</div></div></div>
     </div>
   </div>
 
-  <!-- CLOTHING -->
-  <div class="section" id="s-clothes">
-    <div class="section-header" onclick="toggleSection('s-clothes')">
-      <div class="section-title">👗 Clothing</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="section-count" id="count-s-clothes">0/0</span>
-        <span class="section-chevron">▼</span>
-      </div>
+  <!-- PERSONAL ITEM -->
+  <div class="section" id="s-personal">
+    <div class="section-header" onclick="toggleSection('s-personal')">
+      <div><div class="section-title">👜 Personal Item (Backpack)</div>
+      <div class="section-subtitle">Under-seat bag — documents, tech, liquids, snacks</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-count" id="count-s-personal">0/0</span><span class="section-chevron">▼</span></div>
     </div>
     <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Light breathable tops (5–6)</div><div class="item-note">Linen, moisture-wicking — it'll be very hot & humid</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Lightweight bottoms (3–4)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">One black or plain outfit</div><div class="item-note">Good for nicer dinners or going out</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Black shoes</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sneakers (for working out)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Crocs</div><div class="item-note">Great for hotel, easy on/off for pumping sessions</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Comfortable walking shoes</div><div class="item-note">Night market walking — closed toe useful in rain</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Underwear (6)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Socks (4 pairs)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Light cardigan / layer for A/C</div><div class="item-note">Taiwanese buildings/restaurants are heavily air-conditioned</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Compact rain jacket or umbrella</div><div class="item-note">Rain expected all 6 days — pack both if possible</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">PJs / sleepwear</div></div></div>
-    </div>
-  </div>
-
-  <!-- TOILETRIES -->
-  <div class="section" id="s-toiletries">
-    <div class="section-header" onclick="toggleSection('s-toiletries')">
-      <div class="section-title">🧴 Toiletries</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="section-count" id="count-s-toiletries">0/0</span>
-        <span class="section-chevron">▼</span>
-      </div>
-    </div>
-    <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sunscreen (SPF 50+)</div><div class="item-note">Very UV-intense even on cloudy days</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Shampoo & conditioner (travel)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Body wash</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Deodorant</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Face wash & skincare</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Toothbrush & toothpaste</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Feminine hygiene products</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hair ties / brush</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Contacts + contact solution</div><div class="item-note">Bring enough for 6 days + extras</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Glasses</div><div class="item-note">Always bring as backup</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Makeup (minimal — humidity will be brutal)</div></div></div>
-    </div>
-  </div>
-
-  <!-- HEALTH -->
-  <div class="section" id="s-health">
-    <div class="section-header" onclick="toggleSection('s-health')">
-      <div class="section-title">💊 Health & Meds</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="section-count" id="count-s-health">0/0</span>
-        <span class="section-chevron">▼</span>
-      </div>
-    </div>
-    <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Any prescriptions (5-day supply + extra)</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Ibuprofen / Tylenol</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Antidiarrheal / stomach meds</div><div class="item-note">Useful for food-heavy trips</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Allergy medication</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Motion sickness meds</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Band-aids / blister pads</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Insect repellent (DEET or picaridin)</div></div></div>
-    </div>
-  </div>
-
-  <!-- TECH -->
-  <div class="section" id="s-tech">
-    <div class="section-header" onclick="toggleSection('s-tech')">
-      <div class="section-title">📱 Tech & Electronics</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="section-count" id="count-s-tech">0/0</span>
-        <span class="section-chevron">▼</span>
-      </div>
-    </div>
-    <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">MobiMatter eSIM activated</div><div class="item-note">Greater China & Taiwan 5GB — activate before departure</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Passport</div><div class="item-note">Must be valid 6+ months past Jun 14</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Flight confirmations (screenshot both F9CHM5 + F9G3F1)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hotel confirmation — Hilton Taipei Sinban</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Travel insurance info (Cigna 02335E, ISOS 11BCPA000257, Chubb BTA5002)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Credit cards + cash (TWD or USD to exchange)</div><div class="item-note">Taiwan is cash-heavy for night markets. Notify bank of travel.</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">EasyCard (or grab one at TPE airport)</div><div class="item-note">For MRT + buses in Taipei</div></div></div>
       <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Phone + charger</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Portable charger / power bank</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Laptop / tablet + charger (if needed)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Headphones</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Camera (optional)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Universal power strip / USB hub</div><div class="item-note">Taiwan uses Type A plugs — same as US, no adapter needed</div></div></div>
-    </div>
-  </div>
-
-  <!-- DOCUMENTS -->
-  <div class="section" id="s-docs">
-    <div class="section-header" onclick="toggleSection('s-docs')">
-      <div class="section-title">📄 Documents</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="section-count" id="count-s-docs">0/0</span>
-        <span class="section-chevron">▼</span>
-      </div>
-    </div>
-    <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Passport (valid 6+ months past Jun 14)</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Flight confirmations (F9CHM5 + F9G3F1)</div><div class="item-note">Screenshot or print both</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hotel confirmation (Hilton Taipei Sinban)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Travel insurance info</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Credit cards (notify bank of travel)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Cash in TWD or USD to exchange</div><div class="item-note">Taiwan is still largely cash-based for night markets</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">EasyCard (or plan to get one at airport)</div><div class="item-note">For MRT / buses in Taipei</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">iPad + charger</div><div class="item-note">Can use for white noise, entertainment on 13hr flight</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">USB-A charger for plane + watch charger</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Portable power bank</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Earbuds / headphones</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">MobiMatter eSIM — activate before departure</div><div class="item-note">Greater China & Taiwan 5GB — activate in app settings</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Contacts + contact solution</div><div class="item-note">Bring enough for 6 days + extras</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Glasses</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">3-1-1 liquids bag</div><div class="item-note">Face wash, moisturizer, SPF, toothpaste — travel sizes</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Face masks (for flight)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Snacks for 13hr flight</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Neck pillow + eye mask</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">1 change of clothes (in case of delays)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Reusable water bottle (empty through security)</div></div></div>
     </div>
   </div>
 
   <!-- CARRY-ON -->
   <div class="section" id="s-carryon">
     <div class="section-header" onclick="toggleSection('s-carryon')">
-      <div class="section-title">👜 Carry-On Checklist</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="section-count" id="count-s-carryon">0/0</span>
-        <span class="section-chevron">▼</span>
-      </div>
+      <div><div class="section-title">🧳 Carry-On (Roller Bag)</div>
+      <div class="section-subtitle">Clothing, shoes, full toiletries, meds</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-count" id="count-s-carryon">0/0</span><span class="section-chevron">▼</span></div>
     </div>
     <div class="items">
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Breast pump (TSA: allowed as medical device, no bag limit)</div></div><span class="badge must">MUST</span></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Milk storage bags (empty, in carry-on)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Snacks for 13hr flight</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Neck pillow & eye mask</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Change of clothes (in case of delays)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Liquids bag (3-1-1 rule)</div></div></div>
-      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Valuables & passport</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Light breathable tops (5–6)</div><div class="item-note">Nursing shirts work great — linen or moisture-wicking for humidity</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Lightweight bottoms (3–4)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">One black or plain outfit</div><div class="item-note">For nicer dinners or going out</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Workout outfit + sports bra</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Nursing bras (2–3)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Underwear (6)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Socks (4 pairs)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Light cardigan / layer</div><div class="item-note">Buildings & restaurants in Taiwan are heavily air-conditioned</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Rain jacket</div><div class="item-note">Rain all 6 days — compact packable preferred</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">PJs / sleepwear</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hat</div><div class="item-note">UV protection even on cloudy days</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sunglasses</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">👟 Sneakers — wear on plane</div><div class="item-note">Heaviest shoe, wear to save bag space</div></div><span class="badge warn">WEAR</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">👠 Black shoes</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">🪖 Crocs — pack flat</div><div class="item-note">⚠️ 4 pairs of shoes is tight in a carry-on — consider if you need all 4 or can swap walking shoes for Crocs doubling up</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">👟 Walking shoes</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Sunscreen SPF 50+</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Full-size toiletries</div><div class="item-note">Shampoo, conditioner, body wash, deodorant, face wash, moisturizer</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Toothbrush + toothpaste</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Hair ties + brush</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Makeup (keep minimal — humidity)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Feminine hygiene products</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Supplements</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Prescriptions (6-day supply + extra)</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Ibuprofen / Tylenol</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Stomach meds / antidiarrheal</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Allergy meds</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Insect repellent (DEET or picaridin)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Band-aids / blister pads</div></div></div>
+    </div>
+  </div>
+
+  <!-- RETURN TRIP -->
+  <div class="section" id="s-return">
+    <div class="section-header" onclick="toggleSection('s-return')">
+      <div><div class="section-title">🔄 Return Trip — Milk Transport</div>
+      <div class="section-subtitle">Flying frozen milk home on Jun 14</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="section-count" id="count-s-return">0/0</span><span class="section-chevron">▼</span></div>
+    </div>
+    <div class="items">
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Confirm hotel freezer storage before arrival</div><div class="item-note">Hilton eco-fridge doesn't freeze — call ahead to arrange kitchen/front desk freezer access</div></div><span class="badge must">MUST</span></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Frozen gel packs (bring flat, freeze at hotel)</div><div class="item-note">TSA allows frozen gel packs with breast milk</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Dry ice option (buy in Taipei if needed)</div><div class="item-note">Keeps milk frozen for 13hr flight — max 5.5 lbs allowed in checked, any amount carry-on; declare at security</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Extra zip-lock bags around each milk bag (leak protection)</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Label milk bags with date + volume before freezing</div></div></div>
+      <div class="item" onclick="toggle(this)"><div class="checkbox"></div><div><div class="item-text">Pack pump in carry-on on return (pump bag → milk cooler)</div></div></div>
     </div>
   </div>
 
@@ -263,48 +250,53 @@
 </main>
 
 <script>
-  // Encode checked state as a compact binary string in the URL hash
-  // so the same URL opens the same state on any device.
+  const PW = 'huynh';
+  const AUTH_KEY = 'taiwan-auth';
+
+  function checkPw() {
+    const input = document.getElementById('pwInput');
+    const error = document.getElementById('pwError');
+    if (input.value === PW) {
+      localStorage.setItem(AUTH_KEY, '1');
+      document.getElementById('gate').classList.add('hidden');
+    } else {
+      input.classList.add('error');
+      error.textContent = 'Incorrect password — try again';
+      input.value = '';
+      setTimeout(() => input.classList.remove('error'), 400);
+    }
+  }
+  if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('gate').classList.add('hidden');
 
   function getCheckedBits() {
-    const items = document.querySelectorAll('.item');
     let bits = '';
-    items.forEach(item => bits += item.classList.contains('checked') ? '1' : '0');
+    document.querySelectorAll('.item').forEach(item => bits += item.classList.contains('checked') ? '1' : '0');
     return bits;
   }
-
   function applyBits(bits) {
-    const items = document.querySelectorAll('.item');
-    items.forEach((item, i) => {
+    document.querySelectorAll('.item').forEach((item, i) => {
       if (bits[i] === '1') item.classList.add('checked');
       else item.classList.remove('checked');
     });
   }
-
   function saveState() {
     const bits = getCheckedBits();
-    // Save to URL hash AND localStorage
     history.replaceState(null, '', '#' + bits);
     localStorage.setItem('taiwan-packing-2026', bits);
   }
-
   function loadState() {
-    // URL hash takes priority (lets phone open shared state)
     const hash = location.hash.replace('#', '');
     if (hash && /^[01]+$/.test(hash)) return hash;
     return localStorage.getItem('taiwan-packing-2026') || '';
   }
-
   function toggle(item) {
     item.classList.toggle('checked');
     updateAll();
     saveState();
   }
-
   function toggleSection(id) {
     document.getElementById(id).classList.toggle('collapsed');
   }
-
   function updateAll() {
     const all = document.querySelectorAll('.item');
     const checked = document.querySelectorAll('.item.checked');
@@ -316,7 +308,6 @@
       if (el) el.textContent = section.querySelectorAll('.item.checked').length + '/' + section.querySelectorAll('.item').length;
     });
   }
-
   function copyLink() {
     saveState();
     navigator.clipboard.writeText(location.href).then(() => {
@@ -325,37 +316,12 @@
       setTimeout(() => btn.textContent = '📋 Copy link to sync with phone', 2500);
     });
   }
-
   function resetAll() {
     if (!confirm('Reset all checkboxes?')) return;
     document.querySelectorAll('.item').forEach(i => i.classList.remove('checked'));
     history.replaceState(null, '', location.pathname);
     localStorage.removeItem('taiwan-packing-2026');
     updateAll();
-  }
-
-  // Password gate
-  const PW = 'huynh';
-  const AUTH_KEY = 'taiwan-auth';
-
-  function checkPw() {
-    const input = document.getElementById('pwInput');
-    const error = document.getElementById('pwError');
-    if (input.value === PW) {
-      localStorage.setItem(AUTH_KEY, '1');
-      document.getElementById('gate').classList.add('hidden');
-      input.classList.remove('error');
-      error.textContent = '';
-    } else {
-      input.classList.add('error');
-      error.textContent = 'Incorrect password — try again';
-      input.value = '';
-      setTimeout(() => input.classList.remove('error'), 400);
-    }
-  }
-
-  if (localStorage.getItem(AUTH_KEY) === '1') {
-    document.getElementById('gate').classList.add('hidden');
   }
 
   applyBits(loadState());
