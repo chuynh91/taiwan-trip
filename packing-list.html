@@ -105,6 +105,8 @@
   .reset-btn { display: block; margin: 0 auto 32px; padding: 10px 28px; background: none; border: 1px solid #d1d1d6; border-radius: 99px; color: #6e6e73; font-size: 14px; cursor: pointer; }
   .reset-btn:hover { background: #f5f5f7; }
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -280,11 +282,21 @@
 </main>
 
 <script>
+  // --- Firebase setup ---
+  firebase.initializeApp({
+    apiKey: "AIzaSyBH6D6pEXgB7NGrqBXT8df4REE1CGpxeBE",
+    authDomain: "clhtaiwan2026.firebaseapp.com",
+    databaseURL: "https://clhtaiwan2026-default-rtdb.firebaseio.com",
+    projectId: "clhtaiwan2026",
+    storageBucket: "clhtaiwan2026.firebasestorage.app",
+    messagingSenderId: "209780284372",
+    appId: "1:209780284372:web:86bbfbda02d6258e389441"
+  });
+  const db = firebase.database();
+  const stateRef = db.ref('packing');
+
   const PW = 'huynh';
   const AUTH_KEY = 'taiwan-auth';
-  const CHECKED_KEY = 'taiwan-checked';
-  const DELETED_KEY = 'taiwan-deleted';
-  const CUSTOM_KEY = 'taiwan-custom';
 
   // --- Auth ---
   function checkPw() {
@@ -301,21 +313,59 @@
   }
   if (localStorage.getItem(AUTH_KEY) === '1') document.getElementById('gate').classList.add('hidden');
 
-  // --- State helpers ---
-  function getChecked() { try { return JSON.parse(localStorage.getItem(CHECKED_KEY)) || {}; } catch { return {}; } }
-  function getDeleted() { try { return JSON.parse(localStorage.getItem(DELETED_KEY)) || []; } catch { return []; } }
-  function getCustom() { try { return JSON.parse(localStorage.getItem(CUSTOM_KEY)) || {}; } catch { return {}; } }
+  // --- Local state (kept in sync with Firebase) ---
+  let state = { checked: {}, deleted: {}, custom: {} };
+  const renderedCustomIds = new Set();
+  let writeTimer = null;
 
-  function saveChecked(obj) { localStorage.setItem(CHECKED_KEY, JSON.stringify(obj)); }
-  function saveDeleted(arr) { localStorage.setItem(DELETED_KEY, JSON.stringify(arr)); }
-  function saveCustom(obj) { localStorage.setItem(CUSTOM_KEY, JSON.stringify(obj)); }
+  function scheduleWrite() {
+    clearTimeout(writeTimer);
+    writeTimer = setTimeout(() => stateRef.set(state), 400);
+  }
+
+  // --- Apply Firebase state to DOM ---
+  function applyState(incoming) {
+    if (!incoming) incoming = {};
+    state = { checked: {}, deleted: {}, custom: {}, ...incoming };
+    const { checked, deleted, custom } = state;
+
+    // 1. Remove deleted items
+    Object.keys(deleted).forEach(id => {
+      if (deleted[id]) {
+        const el = document.querySelector(`[data-id="${id}"]`);
+        if (el) el.remove();
+      }
+    });
+
+    // 2. Apply checked/unchecked to all rendered items
+    document.querySelectorAll('.item').forEach(item => {
+      const id = item.dataset.id;
+      item.classList.toggle('checked', !!checked[id]);
+    });
+
+    // 3. Render any new custom items not yet in DOM
+    Object.entries(custom).forEach(([sectionId, items]) => {
+      if (!items) return;
+      Object.entries(items).forEach(([id, item]) => {
+        if (!item || deleted[id]) return;
+        if (!renderedCustomIds.has(id)) {
+          renderCustomItem(sectionId, { id, text: item.text, note: item.note || '' });
+          renderedCustomIds.add(id);
+        }
+        const el = document.querySelector(`[data-id="${id}"]`);
+        if (el) el.classList.toggle('checked', !!checked[id]);
+      });
+    });
+
+    updateAll();
+  }
 
   // --- Toggle item ---
   function toggleItem(item) {
     item.classList.toggle('checked');
-    const checked = getChecked();
-    checked[item.dataset.id] = item.classList.contains('checked');
-    saveChecked(checked);
+    if (!state.checked) state.checked = {};
+    state.checked[item.dataset.id] = item.classList.contains('checked');
+    scheduleWrite();
     updateAll();
   }
 
@@ -323,14 +373,18 @@
   function deleteItem(btn) {
     const item = btn.closest('.item');
     const id = item.dataset.id;
-    const deleted = getDeleted();
-    if (!deleted.includes(id)) deleted.push(id);
-    saveDeleted(deleted);
-    // Also remove from checked
-    const checked = getChecked();
-    delete checked[id];
-    saveChecked(checked);
+    if (!state.deleted) state.deleted = {};
+    state.deleted[id] = true;
+    if (state.checked) delete state.checked[id];
+    // If custom item, null it out in custom map
+    if (id.startsWith('custom-') && state.custom) {
+      Object.keys(state.custom).forEach(sec => {
+        if (state.custom[sec] && state.custom[sec][id]) state.custom[sec][id] = null;
+      });
+      renderedCustomIds.delete(id);
+    }
     item.remove();
+    scheduleWrite();
     updateAll();
   }
 
@@ -352,19 +406,19 @@
     if (!text) { textEl.focus(); return; }
     const note = noteEl.value.trim();
     const id = 'custom-' + sectionId + '-' + Date.now();
-    // Save to custom storage
-    const custom = getCustom();
-    if (!custom[sectionId]) custom[sectionId] = [];
-    custom[sectionId].push({ id, text, note });
-    saveCustom(custom);
-    // Render it
+    if (!state.custom) state.custom = {};
+    if (!state.custom[sectionId]) state.custom[sectionId] = {};
+    state.custom[sectionId][id] = { text, note };
     renderCustomItem(sectionId, { id, text, note });
+    renderedCustomIds.add(id);
     hideAddForm(sectionId);
+    scheduleWrite();
     updateAll();
   }
 
   function renderCustomItem(sectionId, { id, text, note }) {
     const container = document.getElementById('items-' + sectionId);
+    if (!container) return;
     const item = document.createElement('div');
     item.className = 'item';
     item.dataset.id = id;
@@ -376,16 +430,12 @@
           ${note ? `<div class="item-note">${escHtml(note)}</div>` : ''}
         </div>
       </div>
-      <button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button>
-    `;
-    // Apply checked state if saved
-    const checked = getChecked();
-    if (checked[id]) item.classList.add('checked');
+      <button class="delete-btn" onclick="deleteItem(this)" title="Delete">×</button>`;
     container.appendChild(item);
   }
 
-  function escHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
   // --- Section collapse ---
@@ -406,82 +456,26 @@
     });
   }
 
-  // --- Share link ---
+  // --- Share ---
   function copyLink() {
-    // Encode checked IDs in URL hash
-    const checked = getChecked();
-    const ids = Object.entries(checked).filter(([,v])=>v).map(([k])=>k).join(',');
-    const url = location.origin + location.pathname + (ids ? '#' + btoa(ids) : '');
-    navigator.clipboard.writeText(url).then(() => {
+    navigator.clipboard.writeText(location.href).then(() => {
       const btn = document.querySelector('.share-btn');
-      btn.textContent = '✅ Link copied! Open on phone';
-      setTimeout(() => btn.textContent = '📋 Copy link to sync with phone', 2500);
+      btn.textContent = '✅ Link copied — same state on any device!';
+      setTimeout(() => btn.textContent = '📋 Copy link to share', 2500);
     });
   }
 
   // --- Reset ---
   function resetAll() {
-    if (!confirm('Reset all checkboxes? Custom items and deletions will be kept.')) return;
+    if (!confirm('Uncheck all items? Custom items and deletions will be kept.')) return;
+    state.checked = {};
     document.querySelectorAll('.item').forEach(i => i.classList.remove('checked'));
-    saveChecked({});
+    scheduleWrite();
     updateAll();
   }
 
-  // --- Init: apply saved state ---
-  function init() {
-    const checked = getChecked();
-    const deleted = getDeleted();
-    const custom = getCustom();
-
-    // Hide deleted built-in items
-    deleted.forEach(id => {
-      const el = document.querySelector(`[data-id="${id}"]`);
-      if (el) el.remove();
-    });
-
-    // Apply checked state to built-in items
-    Object.entries(checked).forEach(([id, isChecked]) => {
-      if (isChecked) {
-        const el = document.querySelector(`[data-id="${id}"]`);
-        if (el) el.classList.add('checked');
-      }
-    });
-
-    // Render custom items
-    Object.entries(custom).forEach(([sectionId, items]) => {
-      items.forEach(item => {
-        // Only render if not deleted
-        if (!deleted.includes(item.id)) {
-          renderCustomItem(sectionId, item);
-          if (checked[item.id]) {
-            const el = document.querySelector(`[data-id="${item.id}"]`);
-            if (el) el.classList.add('checked');
-          }
-        }
-      });
-    });
-
-    // Apply URL hash checked state (overrides localStorage for cross-device sync)
-    const hash = location.hash.replace('#', '');
-    if (hash) {
-      try {
-        const ids = atob(hash).split(',').filter(Boolean);
-        const newChecked = getChecked();
-        // First uncheck all
-        document.querySelectorAll('.item.checked').forEach(i => i.classList.remove('checked'));
-        // Then check the ones from hash
-        ids.forEach(id => {
-          const el = document.querySelector(`[data-id="${id}"]`);
-          if (el) { el.classList.add('checked'); newChecked[id] = true; }
-        });
-        saveChecked(newChecked);
-      } catch(e) {}
-    }
-
-    updateAll();
-  }
-
-  init();
+  // --- Listen to Firebase (real-time sync across all devices) ---
+  stateRef.on('value', snapshot => applyState(snapshot.val()));
 </script>
 </body>
 </html>
